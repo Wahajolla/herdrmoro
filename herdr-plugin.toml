@@ -1,0 +1,33 @@
+id = "herdrmoro"
+name = "Pomodoro"
+version = "0.1.0"
+min_herdr_version = "0.8.2"
+description = "A pomodoro timer in herdr's tab bar"
+platforms = ["linux", "macos"]
+
+# Built at install time; Go is the only requirement.
+[[build]]
+command = ["go", "build", "-o", "herdrmoro", "./cmd/herdrmoro"]
+
+[[actions]]
+id = "toggle"
+title = "Start / pause"
+contexts = ["global"]
+command = ["./herdrmoro", "toggle"]
+
+[[actions]]
+id = "skip"
+title = "Skip phase"
+contexts = ["global"]
+command = ["./herdrmoro", "skip"]
+
+[[actions]]
+id = "reset"
+title = "Reset"
+contexts = ["global"]
+command = ["./herdrmoro", "reset"]
+
+# A one-shot launch: the daemon stays alive itself and exits when herdr's
+# socket closes.
+[[startup]]
+command = ["./herdrmoro", "daemon"]
